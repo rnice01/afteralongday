@@ -1,0 +1,24 @@
+.body {
+  min-height: 75rem;
+  padding-top: 2rem;
+  padding-bottom: 3rem;
+  color: #5a5a5a;
+}
+.jumbo-tub {
+    background: url("../img/bathtub.jpg")
+    no-repeat center center;
+    background-size: 70rem 70rem;
+    height:20rem;
+    font-family: 'Cinzel Decorative';
+}
+
+.welcome {
+    padding-left: 3rem;
+    padding-right: 3rem;
+}
+
+@media only screen and (max-width: 575px) {
+    .nav-container {
+        margin:0px;
+    }
+}

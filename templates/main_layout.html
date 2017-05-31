@@ -5,18 +5,19 @@
 <head>
     <meta charset="UTF-8">
     <title>After a Long Day</title>
-    <link href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet">
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+    <link href='https://fonts.googleapis.com/css?family=Cinzel Decorative' rel='stylesheet'>
     <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
     <link rel="stylesheet" href="{% static 'css/bootstrap.min.css.map' %}">
     <link rel="stylesheet" href="{% static 'css/carousel.css' %}">
+    <link rel="stylesheet" href="{% static 'css/layout.css' %}">
+    <link rel="stylesheet" href="{% static 'css/blog.css' %}">
 
 </head>
-    {% include 'navbar.html' %}
-    {% include 'products_carousel.html' %}
 <body>
+    {% include 'navbar.html' %}
     {% block content %}
     {% endblock %}
-    {% include 'testimonials.html' %}
 </body>
   <!-- FOOTER -->
       <footer>
@@ -25,13 +26,4 @@
       </footer>
     <script src="{% static 'js/jquery.min.js' %}"></script>
     <script src="{% static 'js/bootstrap.min.js' %}"></script>
-    <script>
-         $(document).ready(function() {
-          //Set the carousel options
-          $('#quote-carousel').carousel({
-            pause: true,
-            interval: 4000,
-          });
-        });
-    </script>
 </html>
