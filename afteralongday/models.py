@@ -8,10 +8,14 @@ class Invoice(models.Model):
     contact_name = models.CharField(max_length=120)
     contact_email = models.CharField(max_length=120)
     total_price = models.IntegerField(default=0)
-    bath_bombs = models.ForeignKey('BathBombs', on_delete=models.CASCADE, null=True)
 
-    def add_bath_bomb(self, bath_bomb):
-        self.total_price += bath_bomb.price
+    def add_order(self, order):
+        self.total_price += order.bathbomb.price * order.quantity
+
+class Order(models.Model):
+    bath_bomb = models.OneToOneField('BathBombs', null=True)
+    quantity = models.IntegerField(default=0)
+    invoice = models.ForeignKey('Invoice', on_delete=models.CASCADE, null=True)
 
 class BathBombs(models.Model):
     name = models.CharField(max_length=120)
