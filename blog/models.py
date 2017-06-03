@@ -8,7 +8,7 @@ class Post(models.Model):
     text = models.TextField(null=True)
     published = models.DateField(auto_now_add=True)
     favorited = models.IntegerField(default=0)
-    image = models.ImageField(upload_to=os.path.join(settings.STATICFILES_DIRS[0], 'img', 'blog'), null=True)
+    image = models.ImageField(upload_to='img/blog', null=True)
 
     def __str__(self):
         return self.title

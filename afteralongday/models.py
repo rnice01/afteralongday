@@ -22,7 +22,7 @@ class BathBombs(models.Model):
     price = models.CharField(max_length=120, default=0)
     in_stock = models.BooleanField(default=True)
     description = models.TextField(null=True)
-    image = models.ImageField(upload_to=os.path.join(settings.STATICFILES_DIRS[0], 'img', 'bathbombs'), null=True)
+    image = models.ImageField(upload_to='image/bathbombs', null=True)
 
     # Return the image filename if set otherwise return placeholder
     def filename(self):
