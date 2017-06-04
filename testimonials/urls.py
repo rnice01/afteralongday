@@ -18,5 +18,6 @@ from django.contrib import admin
 from . import views
 
 urlpatterns = [
-    url(r'^create/$', views.CreateTestimonial.as_view(), name="create"),
+    url(r'^create/$', views.CreateTestimonialView.as_view(), name="create-testimonial"),
+    url(r'^thank-you/$', views.thank_you),
 ]

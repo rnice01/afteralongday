@@ -1,8 +1,13 @@
 from django.shortcuts import render
-from django.contrib.auth.mixins import redirect_to_login, LoginRequiredMixin
 from django.views import generic
-from . import models
+from .forms import CreateTestimonialForm
 # Create your views here.
 
-class CreateTestimonial(generic.TemplateView):
-    template_name = "create_form.html"
+def thank_you(request):
+   return render(request, 'testimonial_thankyou.html')
+
+
+class CreateTestimonialView(generic.CreateView):
+   form_class = CreateTestimonialForm
+   template_name = 'testimonial_form.html'
+   success_url = '/testimonial/thank-you/'

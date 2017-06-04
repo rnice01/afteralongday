@@ -4,6 +4,7 @@
   padding-bottom: 3rem;
   color: #5a5a5a;
 }
+
 .jumbo-tub {
     background: url("../img/bathtub.jpg")
     no-repeat center center;
@@ -15,6 +16,11 @@
 .welcome {
     padding-left: 3rem;
     padding-right: 3rem;
+}
+
+.testimonial-form {
+    padding: 2rem;
+    background:lightblue;
 }
 
 @media only screen and (max-width: 575px) {

@@ -4,6 +4,6 @@ from django.db import models
 
 class Testimonial(models.Model):
     name = models.CharField(max_length=75)
-    description = models.CharField(max_length=100)
+    feedback = models.CharField(max_length=100)
     date = models.DateField(auto_now_add=True)
     display = models.BooleanField(default=False)
