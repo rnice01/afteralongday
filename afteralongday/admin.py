@@ -8,7 +8,7 @@ class OrderInline(admin.TabularInline):
     model = Order
 
 class InvoiceAdmin(admin.ModelAdmin):
-    inlines = (OrderInline, )
+    model = Invoice
 
 admin.site.register(BathBombs, BathBombAdmin)
 admin.site.register(Invoice, InvoiceAdmin)
