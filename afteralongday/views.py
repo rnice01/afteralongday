@@ -1,7 +1,8 @@
-from django.http import JsonResponse
+from django.http import JsonResponse, HttpResponse
 from django.shortcuts import render
 from .models import BathBombs, Order, Invoice
 from testimonials.models import Testimonial
+from .cart_service import CartService
 
 def index(request):
     bath_bombs = BathBombs.objects.all()
@@ -22,10 +23,12 @@ def create_invoice(request):
 def create_order(request):
     if request.is_ajax():
         order = Order()
-        bath_bomb = BathBombs.objects.get(pk=request.POST.get('bathbomb_id'))
         order.bath_bomb = request.POST.get('bathbom_id')
         order.quantity = request.POST.get('quantity')
         order.save()
-        return JsonResponse({'order_id' : order.pk})
+
+        cart_service = CartService()
+        response = cart_service.create_or_update(request, order.pk)
+        return response
     else:
         return False
