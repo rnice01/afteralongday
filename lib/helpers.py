@@ -5,6 +5,8 @@ class CookieHelper:
         pass
 
     def to_list(self, value_string):
+        if value_string == '':
+            return []
         return value_string.split(self.separator)
 
     def to_string(self, value_list):

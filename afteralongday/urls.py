@@ -20,6 +20,7 @@ from . import views
 urlpatterns = [
     url(r'^$', views.index),
     url(r'^add-to-cart$', views.create_order),
+    url(r'^cart-item-count$', views.get_cart_item_count),
     url(r'^admin/', admin.site.urls),
     url(r'^blog/', include('blog.urls')),
     url(r'^testimonial/', include('testimonials.urls')),

@@ -14,3 +14,10 @@ class CartService:
         response = JsonResponse({'success': True})
         response.set_cookie('cart', updated_cart)
         return response
+
+    def get_cart_item_count(self, request):
+        current_cart = request.COOKIES.get('cart', '')
+        cart_list = self.cookie_helper.to_list(current_cart)
+        item_count = len(cart_list)
+        response = JsonResponse({'item_count' : item_count})
+        return response

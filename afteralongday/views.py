@@ -32,3 +32,11 @@ def create_order(request):
         return response
     else:
         return False
+
+def get_cart_item_count(request):
+    if request.is_ajax():
+        cart_service = CartService()
+        response = cart_service.get_cart_item_count(request)
+        return response
+    else:
+        return False

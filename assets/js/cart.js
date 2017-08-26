@@ -1,4 +1,32 @@
+ var cartModule = function() {
+    var cart = {};
+
+    cart.get_current_item_count = function(callback) {
+        var item_count = 0;
+        $.ajax({
+            url: "/cart-item-count",
+            method: "GET",
+            dataType: "json",
+            "beforeSend": function(xhr, settings) {
+                $.ajaxSettings.beforeSend(xhr, settings);
+            },
+            success: function (data) {
+              if (data.item_count)
+                item_count = data.item_count
+              callback(item_count)
+            }
+        })
+    }
+    return cart;
+}
+
 $(document).ready(function() {
+    var cart = cartModule();
+
+    cart.get_current_item_count(function(item_count) {
+         $("#cart-items-badge").html(item_count);
+    });
+
     $("#add-to-cart").on('click', function(e) {
         var self = this;
         bootbox.prompt({
