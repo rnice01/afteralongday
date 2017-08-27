@@ -1,8 +1,7 @@
  var cartModule = function() {
     var cart = {};
 
-    cart.get_current_item_count = function(callback) {
-        var item_count = 0;
+    cart.update_badge_count = function() {
         $.ajax({
             url: "/cart-item-count",
             method: "GET",
@@ -11,9 +10,8 @@
                 $.ajaxSettings.beforeSend(xhr, settings);
             },
             success: function (data) {
-              if (data.item_count)
-                item_count = data.item_count
-              callback(item_count)
+              if (data.item_count !== null)
+                $("#cart-items-badge").html(data.item_count)
             }
         })
     }
@@ -23,11 +21,9 @@
 $(document).ready(function() {
     var cart = cartModule();
 
-    cart.get_current_item_count(function(item_count) {
-         $("#cart-items-badge").html(item_count);
-    });
+    cart.update_badge_count();
 
-    $("#add-to-cart").on('click', function(e) {
+    $(document).on('click', "#add-to-cart", function(e) {
         var self = this;
         bootbox.prompt({
             title: "How many orders?",
@@ -47,13 +43,38 @@ $(document).ready(function() {
                         $.ajaxSettings.beforeSend(xhr, settings);
                     },
                     success: function (data) {
-                       bootbox.alert("Added to cart")
+                       bootbox.alert("Added to cart");
+                       cart.update_badge_count();
+
                     },
                     error: function () {
                         bootbox.alert("Unable to update cart!");
                     }
                 })
             }
+        });
+    });
+
+    $(document).on('click', "#cart-item-delete-btn", function() {
+        var self = this;
+        bootbox.confirm("Are you sure you want to remove this item?", function(confirmed) {
+            if (!confirmed)
+                return;
+            $.ajax({
+                url: "/remove-from-cart",
+                method: "POST",
+                "dataType": "json",
+                data: {
+                    order_id : $(self).attr("data-order-id")
+                },
+                "beforeSend": function(xhr, settings) {
+                    $.ajaxSettings.beforeSend(xhr, settings);
+                },
+                success: function(data) {
+                    $("#order-row-" + $(self).attr("data-order-id")).remove();
+                    cart.update_badge_count();
+                }
+            })
         });
     });
 });

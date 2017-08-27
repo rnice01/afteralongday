@@ -11,11 +11,11 @@ class Invoice(models.Model):
 
 
 class Order(models.Model):
-    bath_bomb = models.OneToOneField('BathBombs', null=True)
     quantity = models.IntegerField(default=0)
+    bath_bomb = models.ForeignKey('Bathbombs')
 
     def get_price(self):
-        return self.bath_bomb.price * self.quantity
+        return self.quantity * self.bath_bomb.price
 
 class BathBombs(models.Model):
     name = models.CharField(max_length=120)

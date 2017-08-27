@@ -1,0 +1,30 @@
+{% extends 'main_layout.html' %}
+{% load static from staticfiles %}
+{% block content %}
+    {% if orders %}
+         <table class="table table-striped">
+              <thead>
+                <tr>
+                  <th>Bath Bomb</th>
+                  <th>Price</th>
+                  <th>Quantity</th>
+                  <th>Subtotal</th>
+                    <th></th>
+                </tr>
+              </thead>
+              <tbody>
+              {% for order in orders %}
+                <tr id="order-row-{{ order.pk }}">
+                  <td>{{ order.bath_bomb.name }}</td>
+                  <td>${{ order.bath_bomb.price }}</td>
+                    <td>{{ order.quantity }}</td>
+                    <td>${{ order.get_price }}</td>
+                  <td><button class="btn btn-danger btn-sm" data-order-id="{{ order.pk }}" id="cart-item-delete-btn"><i class="fa fa-trash-o"></i></button></td>
+                </tr>
+              {% endfor %}
+             </tbody>
+        </table>
+    {% else %}
+    <div class="alert">Your shopping cart is empty.</div>
+    {% endif %}
+{% endblock %}
