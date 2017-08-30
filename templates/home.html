@@ -25,7 +25,7 @@
       <div class="row">
       {% for bath_bomb in bath_bombs %}
         <div class="col-lg-4">
-          <img class="rounded-circle" src="{% static '/img/bathbombs/' %}{{bath_bomb.filename}}" alt="Generic placeholder image" width="140" height="140">
+          <img class="rounded-circle" src="{% static '/image/bathbombs/' %}{{bath_bomb.filename}}" alt="Generic placeholder image" width="140" height="140">
           <h2>{{ bath_bomb.name }}</h2>
             <h6 class="card-subtitle mb-2 text-muted mr-auto">${{bath_bomb.price}}</h6>
           <p>{{bath_bomb.description}}</p>

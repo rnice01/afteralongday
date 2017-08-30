@@ -4,11 +4,12 @@ from .models import BathBombs, Invoice, Order
 class BathBombAdmin(admin.ModelAdmin):
     exclude = ('Invoice', )
 
-class OrderInline(admin.TabularInline):
+class OrderAdmin(admin.ModelAdmin):
     model = Order
 
 class InvoiceAdmin(admin.ModelAdmin):
     model = Invoice
 
+admin.site.register(Order, OrderAdmin)
 admin.site.register(BathBombs, BathBombAdmin)
 admin.site.register(Invoice, InvoiceAdmin)

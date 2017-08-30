@@ -8,14 +8,18 @@ class Invoice(models.Model):
     contact_name = models.CharField(max_length=120)
     contact_email = models.CharField(max_length=120)
     total_price = models.IntegerField(default=0)
+    orders = models.ForeignKey("Order")
 
 
 class Order(models.Model):
-    bath_bomb = models.OneToOneField('BathBombs', null=True)
     quantity = models.IntegerField(default=0)
+    bath_bomb = models.ForeignKey('Bathbombs')
 
     def get_price(self):
-        return self.bath_bomb.price * self.quantity
+        return self.quantity * self.bath_bomb.price
+
+    def __str__(self):
+        return "Order"
 
 class BathBombs(models.Model):
     name = models.CharField(max_length=120)
