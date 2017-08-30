@@ -17,11 +17,36 @@
                 <tr id="order-row-{{ order.pk }}">
                   <td>{{ order.bath_bomb.name }}</td>
                   <td>${{ order.bath_bomb.price }}</td>
-                    <td>{{ order.quantity }}</td>
-                    <td>${{ order.get_price }}</td>
+                  <td>
+                      <form method="POST" action="/update-order-quantity">
+                          {% csrf_token %}
+                          <input type="number" name="order_quantity" value="{{ order.quantity }}"/>
+                          <input type="hidden" name="order_id" value="{{ order.pk }}" />
+                          <button type="submit" class="btn btn-primary btn-sm">Update</button>
+                      </form>
+                  </td>
+                    <td id="order-price" data-order-price="{{ order.get_price }}">${{ order.get_price }}</td>
                   <td><button class="btn btn-danger btn-sm" data-order-id="{{ order.pk }}" id="cart-item-delete-btn"><i class="fa fa-trash-o"></i></button></td>
                 </tr>
               {% endfor %}
+             </tbody>
+             <thead>
+                <tr>
+                    <th></th>
+                    <th></th>
+                    <th></th>
+                    <th>Total</th>
+                    <th></th>
+                </tr>
+             </thead>
+             <tbody>
+                <tr>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td id="order-total">${{ total_price }}</td>
+                    <td></td>
+                </tr>
              </tbody>
         </table>
     {% else %}

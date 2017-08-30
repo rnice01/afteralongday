@@ -21,6 +21,7 @@ urlpatterns = [
     url(r'^$', views.index),
     url(r'^add-to-cart$', views.create_order),
     url(r'^remove-from-cart$', views.remove_item_from_cart),
+    url(r'^update-order-quantity$', views.update_order),
     url(r'^cart-item-count$', views.get_cart_item_count),
     url(r'^shopping-cart$', views.get_shopping_cart),
     url(r'^admin/', admin.site.urls),

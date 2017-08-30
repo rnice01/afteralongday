@@ -1,13 +1,15 @@
 from django.http import JsonResponse, HttpResponse
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from .models import BathBombs, Order, Invoice
 from testimonials.models import Testimonial
 from .cart_service import CartService
+
 
 def index(request):
     bath_bombs = BathBombs.objects.all()
     testimonials = Testimonial.objects.all()
     return render(request, 'home.html', {'bath_bombs': bath_bombs, 'testimonials': testimonials})
+
 
 def create_invoice(request):
     total_price = 0
@@ -19,6 +21,7 @@ def create_invoice(request):
         total_price += order.get_price()
     invoice.total_price = total_price
     invoice.save()
+
 
 def create_order(request):
     if request.is_ajax():
@@ -63,4 +66,15 @@ def get_shopping_cart(request):
     cart_service = CartService()
     orders_in_cart = cart_service.get_orders_in_cart(request)
     orders = Order.objects.filter(id__in=orders_in_cart)
-    return render(request, 'shopping-cart.html', {'orders': orders})
+    total_price = 0
+    for order in orders:
+        total_price += order.get_price()
+
+    return render(request, 'shopping-cart.html', {'orders': orders, 'total_price' : total_price})
+
+
+def update_order(request):
+    order = Order.objects.get(id=request.POST.get("order_id"))
+    order.quantity = request.POST.get('order_quantity')
+    order.save()
+    return redirect('/shopping-cart')
