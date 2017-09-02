@@ -1,0 +1,1 @@
+web: gunicorn afteralongday.wsgi --log-file -
