@@ -1,6 +1,6 @@
 import os
 from django.db import models
-from django.conf import settings
+from . import settings
 
 # Create your models here.
 class Invoice(models.Model):
@@ -26,13 +26,7 @@ class BathBombs(models.Model):
     price = models.IntegerField(default=0)
     in_stock = models.BooleanField(default=True)
     description = models.TextField(null=True)
-    image = models.ImageField(upload_to='image/bathbombs', null=True)
-
-    # Return the image filename if set otherwise return placeholder
-    def filename(self):
-        if self.image is not None:
-            return os.path.basename(self.image.name)
-        return 'bathbomb_placeholder.jpg'
+    image_url = models.TextField(default=settings.STATIC_URL + 'image/bathbombs/makeitmine.jpg')
 
     def __str__(self):
         return self.name
