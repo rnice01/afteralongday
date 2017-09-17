@@ -5,7 +5,7 @@ from .models import Post
 class PostAdmin(admin.ModelAdmin):
     exclude = ['favorited', ]
 
-    list_display = ('title', 'published', 'favorited')
+    list_display = ('title', 'published')
 
     list_filter = ['published']
 

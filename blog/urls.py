@@ -19,4 +19,6 @@ from . import views
 
 urlpatterns = [
     url(r'^$', views.index),
+    url(r'like$', views.like_comment),
+    url(r'comment$', views.comment)
 ]

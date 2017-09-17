@@ -10,13 +10,9 @@
 <div class="container">
 
       <div class="row">
-
         <div class="col-sm-8 blog-main">
-        {% for post in posts %}
           <div class="card card-block">
-             {% if post.image_file is not None %}
-              <img class="card-img-top mx-auto" src="{% static '/img/blog/' %}{{post.image_file}}" alt="Card image cap">
-              {% endif %}
+              <img class="card-img-top mx-auto" src="{{ post.image_url }}" alt="Card image cap">
             <div class="card-header post-header">
               <i class="fa fa-user" aria-hidden="true"></i>
               <small>Brittany {{ post.published }}</small>
@@ -24,52 +20,34 @@
             <div class="card-block">
               <h4 class="card-title">{{ post.title }}</h4>
               <p class="card-text">{{ post.text }}</p>
-              <a href="#" class="btn btn-info pull-right">
-                <i class="fa fa-thumbs-up" aria-hidden="true">{{ post.times_favorited }}</i>
-              </a>
-              <a href="#" class="btn btn-primary pull-right mr-1" role="button">Comment</a>
+              <button id="like-button" class="btn btn-info pull-right">
+                <i id="times-liked" class="fa fa-thumbs-up" aria-hidden="true">{{ post.times_favorited }}</i>
+              </button>
+              {% if request.user.is_authenticated %}
+                <h3>Leave a comment</h3>
+                <input id="post-id" type="hidden" name="post" value="{{ post.pk }}" />
+                <textarea id="comment-field" class="form-group" rows="5"></textarea>
+                <button id="comment-button" class="btn btn-primary pull-right mr-1" role="button">Comment</button>
+                {% else %}
+                <p><a href="/accounts/login">Login</a> or <a href="/accounts/register">Sign up</a> to leave a comment</p>
+                {% endif %}
             </div>
           </div>
-        {% endfor %}
+            {% for comment in post.comments.all %}
+            <div class="card card-outline-primary mb-3 text-center">
+              <div class="card-block">
+                <blockquote class="card-blockquote">
+                  <p>{{ comment.comment }}</p>
+                  <footer><cite title="Source Title">{{ comment.user.username }}</cite> - {{ comment.date_posted }}</footer>
+                </blockquote>
+              </div>
+            </div>
+            {% endfor %}
+        </div><!-- /.blog-main -->
           <nav class="blog-pagination">
             <a class="btn btn-outline-primary" href="#">Older</a>
             <a class="btn btn-outline-secondary disabled" href="#">Newer</a>
           </nav>
-
-        </div><!-- /.blog-main -->
-
-        <div class="col-sm-3 offset-sm-1 blog-sidebar">
-          <div class="sidebar-module sidebar-module-inset">
-            <h4>About</h4>
-            <p>Etiam porta <em>sem malesuada magna</em> mollis euismod. Cras mattis consectetur purus sit amet fermentum. Aenean lacinia bibendum nulla sed consectetur.</p>
-          </div>
-          <div class="sidebar-module">
-            <h4>Archives</h4>
-            <ol class="list-unstyled">
-              <li><a href="#">March 2014</a></li>
-              <li><a href="#">February 2014</a></li>
-              <li><a href="#">January 2014</a></li>
-              <li><a href="#">December 2013</a></li>
-              <li><a href="#">November 2013</a></li>
-              <li><a href="#">October 2013</a></li>
-              <li><a href="#">September 2013</a></li>
-              <li><a href="#">August 2013</a></li>
-              <li><a href="#">July 2013</a></li>
-              <li><a href="#">June 2013</a></li>
-              <li><a href="#">May 2013</a></li>
-              <li><a href="#">April 2013</a></li>
-            </ol>
-          </div>
-          <div class="sidebar-module">
-            <h4>Elsewhere</h4>
-            <ol class="list-unstyled">
-              <li><a href="#">GitHub</a></li>
-              <li><a href="#">Twitter</a></li>
-              <li><a href="#">Facebook</a></li>
-            </ol>
-          </div>
-        </div><!-- /.blog-sidebar -->
-
       </div><!-- /.row -->
 
     </div>
