@@ -19,6 +19,8 @@ from . import views
 
 urlpatterns = [
     url(r'^$', views.index),
+    url(r'^(?P<post_id>\d+)$', views.get_blog),
     url(r'like$', views.like_comment),
-    url(r'comment$', views.comment)
+    url(r'comment$', views.comment),
+    url(r'comments/edit/(?P<comment_id>\d+)$', views.edit_comment, name='edit_comment'),
 ]

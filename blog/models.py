@@ -6,7 +6,7 @@ from django.contrib.auth.models import User
 # Create your models here.
 
 class Comment(models.Model):
-    user = models.OneToOneField(User, null=True)
+    user = models.ForeignKey(User, null=True)
     text = models.TextField(default='Add your comment here.')
     date_posted = models.DateField(auto_now_add=True)
 
@@ -25,9 +25,3 @@ class Post(models.Model):
         if self.favorited is not None:
             return self.favorited.count()
         return ""
-
-class Reply(models.Model):
-    user = models.ManyToManyField(User)
-    reply = models.TextField(default='Add your reply here.')
-    date_posted = models.DateField(auto_now_add=True)
-    comment = models.ForeignKey(Comment, on_delete=models.CASCADE)
