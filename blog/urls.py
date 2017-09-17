@@ -18,9 +18,10 @@ from django.contrib import admin
 from . import views
 
 urlpatterns = [
-    url(r'^$', views.index),
-    url(r'^(?P<post_id>\d+)$', views.get_blog),
-    url(r'like$', views.like_comment),
+    url(r'^$', views.index, name='blog'),
+    url(r'^(?P<post_id>\d+)$', views.get_blog, name='get_post'),
+    url(r'like$', views.like_post, name='like_post'),
     url(r'comment$', views.comment),
-    url(r'comments/edit/(?P<comment_id>\d+)$', views.edit_comment, name='edit_comment'),
+    url(r'comment/edit/(?P<comment_id>\d+)$', views.edit_comment, name='edit_comment'),
+    url(r'comment/delete$', views.delete_comment, name='delete_comment'),
 ]

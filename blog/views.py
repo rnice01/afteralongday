@@ -1,17 +1,35 @@
 from django.shortcuts import render, redirect
 from django.http import JsonResponse
+from django.core.exceptions import ObjectDoesNotExist
 from .models import Post, Comment
 # Create your views here.
 
 def index(request):
     post = Post.objects.latest('published')
-    return render(request, 'blogs.html', {'post': post})
+    context = find_old_and_new_posts(post.pk)
+    context['post'] = post
+    return render(request, 'blogs.html', context)
 
 def get_blog(request, post_id):
-    post = Post.objects.get(id=post_id)
-    return render(request, 'blogs.html', {'post': post})
+    try:
+        post = Post.objects.get(id=post_id)
+    except ObjectDoesNotExist:
+        post = Post.objects.latest('published')
+    context = find_old_and_new_posts(post.pk)
+    context['post'] = post
+    return render(request, 'blogs.html', context)
 
-def like_comment(request):
+def find_old_and_new_posts(current_post_id):
+    context = {}
+    previous_post_id = current_post_id - 1
+    next_post_id = current_post_id + 1
+    if Post.objects.filter(id=previous_post_id).exists():
+        context['previous_post_id'] = previous_post_id
+    if Post.objects.filter(id=next_post_id).exists():
+        context['next_post_id'] = next_post_id
+    return context
+
+def like_post(request):
     if request.is_ajax():
         post_id = request.POST.get('post_id')
         if Post.objects.filter(id=post_id, favorited=request.user).exists():
@@ -56,6 +74,11 @@ def edit_comment(request, comment_id):
 def delete_comment(request):
     if request.is_ajax and request.method == "POST":
         comment = Comment.objects.get(id=request.POST.get('comment_id'))
-        comment.delete()
-        response = JsonResponse({'message': 'deleted comment'}, status=200)
-        return response
+        if comment.user == request.user:
+            deleted_id = comment.pk
+            comment.delete()
+            response = JsonResponse({'message': 'deleted comment', 'comment_id': deleted_id}, status=200)
+            return response
+        else:
+            response = JsonResponse({'message': 'Deleting comment ID ' + str(comment.pk) + ' is forbidden for user ' + request.user.username})
+            return response

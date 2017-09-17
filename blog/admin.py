@@ -3,7 +3,7 @@ from .models import Post
 # Register your models here.
 
 class PostAdmin(admin.ModelAdmin):
-    exclude = ['favorited', ]
+    exclude = ['favorited', 'comments']
 
     list_display = ('title', 'published')
 
