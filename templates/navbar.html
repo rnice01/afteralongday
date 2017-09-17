@@ -1,4 +1,8 @@
 {% load static from staticfiles %}
+{% url 'home' as home_url %}
+{% url 'blog' as blog_url %}
+{% url 'shopping-cart' as cart_url %}
+
 <nav class="navbar navbar-toggleable-md navbar-light bg-faded sticky-top">
   <div class="container nav-container">
     <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
@@ -10,13 +14,13 @@
     </a>
     <div class="collapse navbar-collapse" id="navbarNavDropdown">
       <ul class="navbar-nav ml-auto mr-5">
-        <li class="nav-item active">
+        <li class="nav-item {% if request.get_full_path == home_url %} active {% endif %}">
           <a class="nav-link" href="/">Home <span class="sr-only">(current)</span></a>
         </li>
-        <li class="nav-item">
+        <li class="nav-item {% if blog_url in request.get_full_path %} active {% endif %}">
           <a class="nav-link" href="/blog">Bomb Blog</a>
         </li>
-         <li class="nav-item">
+         <li class="nav-item {% if request.get_full_path == cart_url %} active {% endif %}">
           <a class="nav-link" href="/shopping-cart">Cart <span class="badge badge-primary" id="cart-items-badge"></span></a>
         </li>
          <li class="nav-item dropdown">

@@ -62,7 +62,6 @@
                 quantity: quantity
             },
             successCallback: function(data) {
-                bootbox.alert("Added to cart");
                 cart.update_badge_count();
             },
             errorCallback: function(data) {
@@ -110,7 +109,7 @@ $(document).ready(function() {
     $(document).on('click', "#add-to-cart", function(e) {
         var self = this;
         bootbox.prompt({
-            title: "How many orders?",
+            title: "Enter quantity",
             inputType: 'number',
             callback: function (quantity) {
                 if (!quantity)

@@ -3,9 +3,9 @@ from .models import Post
 # Register your models here.
 
 class PostAdmin(admin.ModelAdmin):
-    exclude = ['favorited', ]
+    exclude = ['favorited', 'comments']
 
-    list_display = ('title', 'published', 'favorited')
+    list_display = ('title', 'published')
 
     list_filter = ['published']
 
