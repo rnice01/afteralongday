@@ -26,6 +26,6 @@ urlpatterns = [
     url(r'^shopping-cart$', views.get_shopping_cart),
     url(r'^admin/', admin.site.urls),
     url(r'^blog/', include('blog.urls')),
-    url(r'^testimonial/', include('testimonials.urls')),
+    url(r'^testimonial/', views.create_testimonial),
     url(r'^accounts/', include('accounts.urls'))
 ]
