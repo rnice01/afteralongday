@@ -50,6 +50,12 @@
              </tbody>
         </table>
     {% else %}
-    <div class="alert">Your shopping cart is empty.</div>
+    <div class="container mt-2">
+		<div class="col-md-6 mx-auto text-center">
+			<i class="fa fa-frown-o display-4"></i>
+			<h4>Your Shopping Cart is Empty</h4>
+			<a href="/">Check out the bombs!</a>
+		</div>
+	</div>
     {% endif %}
 {% endblock %}

@@ -9,7 +9,7 @@
     <div class="row">
         <div class="col-sm-8 blog-main">
             <div class="card card-block">
-                <img alt="Card image cap" class="card-img-top mx-auto" src="{{ post.image_url }}">
+                <img alt="Card image cap" style="width: 250px; height: 200px;" class="card-img-top mx-auto" src="{{ post.image_url }}">
                 <div class="card-header post-header">
                     <i aria-hidden="true" class="fa fa-user"></i> <small>Brittany {{ post.published }}</small>
                     <button class="btn btn-info pull-right {% if not request.user.is_authenticated %} disabled {% endif %}" id="like-button"><i aria-hidden="true" class="fa fa-thumbs-up" id="times-liked"> {{ post.times_favorited }}</i></button>
