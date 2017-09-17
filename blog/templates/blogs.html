@@ -16,33 +16,35 @@
             <div class="card-header post-header">
               <i class="fa fa-user" aria-hidden="true"></i>
               <small>Brittany {{ post.published }}</small>
+                 <button id="like-button" class="btn btn-info pull-right">
+                <i id="times-liked" class="fa fa-thumbs-up" aria-hidden="true">{{ post.times_favorited }}</i>
+              </button>
             </div>
             <div class="card-block">
               <h4 class="card-title">{{ post.title }}</h4>
               <p class="card-text">{{ post.text }}</p>
-              <button id="like-button" class="btn btn-info pull-right">
-                <i id="times-liked" class="fa fa-thumbs-up" aria-hidden="true">{{ post.times_favorited }}</i>
-              </button>
+
+                 {% for comment in post.comments.all %}
+            <div class="card card-outline-default p-2 mt-2 text-center">
+              <div class="card-block">
+                <blockquote class="card-blockquote">
+                  <p>{{ comment.text }}</p>
+                  <footer>- <cite title="Source Title">{{ comment.user.username }}</cite> @ {{ comment.date_posted }}</footer>
+                </blockquote>
+              </div>
+            </div>
+            {% endfor %}
+
               {% if request.user.is_authenticated %}
                 <h3>Leave a comment</h3>
                 <input id="post-id" type="hidden" name="post" value="{{ post.pk }}" />
-                <textarea id="comment-field" class="form-group" rows="5"></textarea>
+                <textarea id="comment-field" class="form-control" rows="5"></textarea>
                 <button id="comment-button" class="btn btn-primary pull-right mr-1" role="button">Comment</button>
                 {% else %}
                 <p><a href="/accounts/login">Login</a> or <a href="/accounts/register">Sign up</a> to leave a comment</p>
                 {% endif %}
             </div>
           </div>
-            {% for comment in post.comments.all %}
-            <div class="card card-outline-primary mb-3 text-center">
-              <div class="card-block">
-                <blockquote class="card-blockquote">
-                  <p>{{ comment.comment }}</p>
-                  <footer><cite title="Source Title">{{ comment.user.username }}</cite> - {{ comment.date_posted }}</footer>
-                </blockquote>
-              </div>
-            </div>
-            {% endfor %}
         </div><!-- /.blog-main -->
           <nav class="blog-pagination">
             <a class="btn btn-outline-primary" href="#">Older</a>

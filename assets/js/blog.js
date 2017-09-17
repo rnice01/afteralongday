@@ -39,10 +39,15 @@ $(document).ready(function() {
                 $.ajaxSettings.beforeSend(xhr, settings);
             },
             success: function (data) {
-                location.reload();
+                if (data.message) {
+                    bootbox.alert(data.message);
+                } else {
+                    location.reload();
+                }
+
             },
             error: function(data) {
-               bootbox.alert("Our like button is broken :{");
+               bootbox.alert("Our comment button is broken :{");
             }
         });
     });

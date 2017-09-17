@@ -6,8 +6,8 @@ from django.contrib.auth.models import User
 # Create your models here.
 
 class Comment(models.Model):
-    user = models.ManyToManyField(User)
-    comment = models.TextField(default='Add your comment here.')
+    user = models.OneToOneField(User, null=True)
+    text = models.TextField(default='Add your comment here.')
     date_posted = models.DateField(auto_now_add=True)
 
 class Post(models.Model):
