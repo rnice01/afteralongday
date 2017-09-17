@@ -1,0 +1,37 @@
+{% if request.user.is_authenticated %}
+  <p class="text-info" style="cursor: pointer;" data-toggle="modal"  data-target="#testimonialModalForm">Love our bathbombs and want to tell us?</p>
+{% else %}
+    <p>Love our bathbombs and want to tell us? <a href="/accounts/login">Login</a> or <a href="/accounts/register">Sign up</a> to leave us feedback!</p>
+{% endif %}
+<!-- Modal -->
+<div class="modal fade" id="testimonialModalForm" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Leave us some feedback</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div id="testimonial-modal-body" class="modal-body">
+        <form id="testimonial-form">
+            <div class="form-group row">
+              <div class="col-10">
+                <textarea id="testimonial_feedback" class="form-control" rows="5" name="feedback"></textarea>
+              </div>
+            </div>
+            <div class="form-group row">
+                <div class="ml-auto p-1">
+                    <h6 id="count_message"></h6>
+                </div>
+            </div>
+            <div class="form-group row">
+              <div class="col-10">
+                <button type="submit" class="btn btn-primary">Submit</button>
+              </div>
+            </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

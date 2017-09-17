@@ -1,9 +1,7 @@
 from django.http import JsonResponse, HttpResponse
 from django.shortcuts import render, redirect
-from .models import BathBombs, Order, Invoice
-from testimonials.models import Testimonial
+from .models import BathBombs, Order, Invoice, Testimonial
 from .cart_service import CartService
-
 
 def index(request):
     bath_bombs = BathBombs.objects.all()
@@ -78,3 +76,23 @@ def update_order(request):
     order.quantity = request.POST.get('order_quantity')
     order.save()
     return redirect('/shopping-cart')
+
+def create_testimonial(request):
+    if request.is_ajax():
+        if Testimonial.objects.filter(user=request.user).exists():
+            response = JsonResponse({'message' : 'We have already received your feedback, thank you!'})
+            return response
+        else:
+            testimonial = Testimonial(
+                user = request.user,
+                feedback = request.POST.get("feedback")
+            )
+            testimonial.save()
+            response = JsonResponse({'message': 'Thank you'})
+            return response
+    else:
+        return redirect('/')
+
+
+def thank_you(request):
+   return render(request, 'testimonial_thankyou.html')

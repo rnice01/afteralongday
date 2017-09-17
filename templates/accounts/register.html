@@ -1,0 +1,29 @@
+{% extends 'main_layout.html' %}
+{% block content %}
+<div class="container mt-5">
+  <div class="row">
+    <div class="col-md-6 offset-md-3">
+        <h1>Create your account</h1>
+        <form method="POST">
+          {% csrf_token %}
+          {% for field in form %}
+            <div class="form-group">
+                <label for="{{ field.auto_id }}">{{ field.label_tag }}</label>
+                {{ field }}
+                {% for error in field.errors %}
+                  <div class="alert alert-success" role="alert">
+                   {{ error }}
+                    </div>
+                {% endfor %}
+            </div>
+            {% endfor %}
+            <div class="form-group row">
+              <div class="col-10">
+                <button type="submit" class="btn btn-primary" >Submit</button>
+              </div>
+            </div>
+        </form>
+    </div>
+    </div>
+</div>
+{% endblock %}
