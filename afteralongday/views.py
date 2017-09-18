@@ -72,10 +72,12 @@ def get_shopping_cart(request):
 
 
 def update_order(request):
-    order = Order.objects.get(id=request.POST.get("order_id"))
-    order.quantity = request.POST.get('order_quantity')
-    order.save()
-    return redirect('/shopping-cart')
+    if request.is_ajax():
+        order = Order.objects.get(id=request.POST.get("order_id"))
+        order.quantity = request.POST.get('quantity')
+        order.save()
+        response = JsonResponse({'quantity' : order.quantity, 'price' : order.bath_bomb.price})
+        return response
 
 def create_testimonial(request):
     if request.is_ajax():

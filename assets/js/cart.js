@@ -41,7 +41,7 @@
         }
     }
 
-    cart.update_badge_count = function() {
+    cart.updateBadgeCount = function() {
         var request = {
             url: "/cart-item-count",
             method: "GET",
@@ -53,7 +53,7 @@
         cartRequest(request);
     }
 
-    cart.add_order = function(product_id, quantity) {
+    cart.addOrder = function(product_id, quantity) {
         var request = {
             url: "/add-to-cart",
             method: "POST",
@@ -62,7 +62,7 @@
                 quantity: quantity
             },
             successCallback: function(data) {
-                cart.update_badge_count();
+                cart.updateBadgeCount();
             },
             errorCallback: function(data) {
                 bootbox.alert("Unable to update cart")
@@ -71,15 +71,15 @@
         cartRequest(request);
     }
 
-    cart.update_total_price = function() {
+    cart.updateTotalPrice = function() {
          var total_price = 0;
-         $('*[id*=order-price]:visible').each(function() {
-               total_price += Number($(this).attr("data-order-price"));
+         $('.order-subtotal').each(function() {
+               total_price += Number($(this).data("order-price"));
          });
-         $("#order-total").html("$" + total_price);
+         $("#order-total").text(total_price);
     }
 
-    cart.remove_order = function(order_id) {
+    cart.removeOrder = function(order_id) {
         var request = {
             url: "/remove-from-cart",
             method: "POST",
@@ -88,8 +88,30 @@
             },
             successCallback: function(data) {
                  $("#order-row-" + order_id).remove();
-                 cart.update_badge_count();
-                 cart.update_total_price();
+                 cart.updateBadgeCount();
+                 cart.updateTotalPrice();
+            },
+            errorCallback: function(data) {
+                bootbox.alert("Unable to update cart")
+            }
+        };
+        cartRequest(request);
+    }
+
+    cart.updateOrder = function(orderId, quantity) {
+        var request = {
+            url: "/update-order",
+            method: "POST",
+            data: {
+                order_id:  orderId,
+                quantity: quantity
+            },
+            successCallback: function(data) {
+                var subtotal = Number(data.quantity) * Number(data.price)
+                var subtotalRow = $('#order-row-' + orderId).children('.order-subtotal');
+                subtotalRow.html('$' + subtotal);
+                subtotalRow.attr('data-order-price', subtotal);
+                cart.updateTotalPrice();
             },
             errorCallback: function(data) {
                 bootbox.alert("Unable to update cart")
@@ -104,7 +126,7 @@
 $(document).ready(function() {
     var cart = cartModule();
 
-    cart.update_badge_count();
+    cart.updateBadgeCount();
 
     $(document).on('click', "#add-to-cart", function(e) {
         var self = this;
@@ -114,9 +136,15 @@ $(document).ready(function() {
             callback: function (quantity) {
                 if (!quantity)
                     return
-                cart.add_order($(self).attr("data-bathbomb-id"), quantity);
+                cart.addOrder($(self).attr("data-bathbomb-id"), quantity);
             }
         });
+    });
+
+    $(document).on('click', '#cart-item-update-btn', function() {
+        var orderId = $(this).attr('data-order-id');
+        var quantityRow = $('#order-' + orderId + '-quantity');
+        cart.updateOrder(orderId, quantityRow.val());
     });
 
     $(document).on('click', "#cart-item-delete-btn", function() {
@@ -124,7 +152,7 @@ $(document).ready(function() {
         bootbox.confirm("Are you sure you want to remove this item?", function(confirmed) {
             if (!confirmed)
                 return;
-            cart.remove_order($(self).attr("data-order-id"));
+            cart.removeOrder($(self).attr("data-order-id"));
         });
     });
 });
