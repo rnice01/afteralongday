@@ -21,6 +21,7 @@
 
 @media (max-width: 599px) {
     .blog-pagination {
+        margin-top: 2rem;
         margin-bottom: 4rem;
         margin-right: auto !important;
         margin-left: auto !important;
