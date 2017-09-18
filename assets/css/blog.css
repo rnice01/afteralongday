@@ -10,3 +10,23 @@
 .card-post {
     width: 40rem;
 }
+
+.card {
+    max-width: 100%;
+}
+
+.card-text {
+    word-wrap: break-word;
+}
+
+@media (max-width: 599px) {
+    .blog-pagination {
+        margin-bottom: 4rem;
+        margin-right: auto !important;
+        margin-left: auto !important;
+    }
+}
+
+.blog-pagination .btn {
+    border-radius: 2rem;
+}
