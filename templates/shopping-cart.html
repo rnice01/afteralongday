@@ -28,7 +28,7 @@
                         <td data-th="Quantity">
                             <input type="number" id="order-{{ order.pk }}-quantity" class="form-control text-center" value="{{ order.quantity }}">
                         </td>
-                        <td data-th="Subtotal" class="text-center order-subtotal" data-order-price="{{ order.get_price }}">${{ order.get_price }}</td>
+                        <td data-th="Subtotal" class="text-center">$<span class="order-subtotal">{{ order.get_price }}</span></td>
                         <td class="actions" data-th="">
                             <button class="btn btn-info btn-sm" data-order-id="{{ order.pk }}" id="cart-item-update-btn"><i class="fa fa-refresh"></i></button>
                             <button class="btn btn-danger btn-sm" data-order-id="{{ order.pk }}" id="cart-item-delete-btn"><i class="fa fa-trash-o"></i></button>

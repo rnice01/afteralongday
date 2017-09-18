@@ -74,7 +74,7 @@
     cart.updateTotalPrice = function() {
          var total_price = 0;
          $('.order-subtotal').each(function() {
-               total_price += Number($(this).data("order-price"));
+               total_price += Number($(this).text());
          });
          $("#order-total").text(total_price);
     }
@@ -108,9 +108,8 @@
             },
             successCallback: function(data) {
                 var subtotal = Number(data.quantity) * Number(data.price)
-                var subtotalRow = $('#order-row-' + orderId).children('.order-subtotal');
-                subtotalRow.html('$' + subtotal);
-                subtotalRow.attr('data-order-price', subtotal);
+                var subtotalSpan = $('#order-row-' + orderId).find('.order-subtotal');
+                subtotalSpan.text(subtotal);
                 cart.updateTotalPrice();
             },
             errorCallback: function(data) {
@@ -144,6 +143,10 @@ $(document).ready(function() {
     $(document).on('click', '#cart-item-update-btn', function() {
         var orderId = $(this).attr('data-order-id');
         var quantityRow = $('#order-' + orderId + '-quantity');
+        if (Number(quantityRow.val()) <= 0) {
+            bootbox.alert("Quantity must be 1 or greater");
+            return;
+        }
         cart.updateOrder(orderId, quantityRow.val());
     });
 
