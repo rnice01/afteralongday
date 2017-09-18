@@ -23,7 +23,7 @@
           <a class="nav-link" href="/blog">Bomb Blog</a>
         </li>
          <li class="nav-item {% if request.get_full_path == cart_url %} active {% endif %}">
-          <a class="nav-link" href="/shopping-cart">Cart <span class="badge badge-primary" id="cart-items-badge"></span></a>
+          <a class="nav-link" href="/shopping-cart">Cart <span class="badge badge-primary" id="cart-items-badge">0</span></a>
         </li>
          <li class="nav-item dropdown">
             {% if request.user.is_authenticated %}
