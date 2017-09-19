@@ -158,4 +158,8 @@ $(document).ready(function() {
             cart.removeOrder($(self).attr("data-order-id"));
         });
     });
+    
+    $(document).on('click', '#login-signup-prompt', function() {
+        bootbox.alert('Please <a href="/accounts/login">Login</a> or <a href="/accounts/register">Sign up</a> to start shopping!');
+    });
 });

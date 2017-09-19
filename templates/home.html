@@ -29,7 +29,11 @@
           <h2>{{ bath_bomb.name }}</h2>
             <h6 class="card-subtitle mb-2 text-muted mr-auto">${{bath_bomb.price}}</h6>
           <p>{{bath_bomb.description}}</p>
+          {% if request.user.is_authenticated %}
           <p><button class="btn btn-secondary" data-bathbomb-id="{{bath_bomb.pk}}" id="add-to-cart" role="button">Add to Cart »</button></p>
+          {% else %}
+          <p><button class="btn btn-secondary" data-bathbomb-id="{{bath_bomb.pk}}" id="login-signup-prompt" role="button">Add to Cart »</button></p>
+          {% endif %}
         </div><!-- /.col-lg-4 -->
       {% endfor %}
       </div><!-- /.row -->
