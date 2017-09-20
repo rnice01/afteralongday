@@ -4,6 +4,7 @@ from django.core.exceptions import ObjectDoesNotExist
 from .models import Post, Comment
 # Create your views here.
 
+
 def index(request):
     post = Post.objects.latest('published')
     context = find_old_and_new_posts(post.pk)

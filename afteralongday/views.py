@@ -1,8 +1,10 @@
-from django.http import JsonResponse, HttpResponse
+from django.http import JsonResponse
+from django.views.decorators.csrf import ensure_csrf_cookie
 from django.shortcuts import render, redirect
 from .models import BathBombs, Order, Invoice, Testimonial
 from .cart_service import CartService
 
+@ensure_csrf_cookie
 def index(request):
     bath_bombs = BathBombs.objects.all()
     testimonials = Testimonial.objects.all()

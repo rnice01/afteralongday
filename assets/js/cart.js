@@ -63,6 +63,7 @@
             },
             successCallback: function(data) {
                 cart.updateBadgeCount();
+                bootbox.alert("Item added to cart");
             },
             errorCallback: function(data) {
                 bootbox.alert("Unable to update cart")
@@ -157,9 +158,5 @@ $(document).ready(function() {
                 return;
             cart.removeOrder($(self).attr("data-order-id"));
         });
-    });
-    
-    $(document).on('click', '#login-signup-prompt', function() {
-        bootbox.alert('Please <a href="/accounts/login">Login</a> or <a href="/accounts/register">Sign up</a> to start shopping!');
     });
 });
